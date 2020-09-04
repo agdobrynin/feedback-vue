@@ -12,7 +12,7 @@ final class Install
 {
     private static function getConfigDirectory(): string
     {
-        return dirname(__FILE__, 2);
+        return dirname(__FILE__, 2).DIRECTORY_SEPARATOR.'src';
     }
 
     private static function getConfigFilePath(): string
