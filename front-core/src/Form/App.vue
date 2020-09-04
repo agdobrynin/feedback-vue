@@ -3,19 +3,19 @@
     <form action="/store" @submit.prevent="store" v-if="!success">
       <h3>Отправить сообщение</h3>
 
-      <div class="form-group" :class="{'has-error': this.getErrorName}">
+      <div class="form-group" :class="this.getErrorName ? 'has-error': 'has-success'">
         <label>Имя</label>
         <input type="text" class="form-control" required v-model="messageDto.name" :disabled="loading">
         <p v-if="this.getErrorName" class="help-block">{{ this.getErrorName }}</p>
       </div>
 
-      <div class="form-group" :class="{'has-error': this.getErrorEmail}">
+      <div class="form-group" :class="this.getErrorEmail ? 'has-error' : 'has-success'">
         <label>Email</label>
         <input type="email" class="form-control" required v-model="messageDto.email" :disabled="loading">
         <p v-if="this.getErrorEmail" class="help-block">{{ this.getErrorEmail }}</p>
       </div>
 
-      <div class="form-group" :class="{'has-error': this.getErrorMessage}">
+      <div class="form-group" :class="this.getErrorMessage ? 'has-error' : 'has-success'">
         <label>Сообщение</label>
         <textarea name="message" required class="form-control" rows="5" v-model="messageDto.message" :disabled="loading">
         </textarea>
@@ -66,23 +66,26 @@ export default {
     },
 
     validateName() {
-      this.errors.unset("name");
+      const key = "name";
+      this.errors.unset(key);
       if (this.messageDto.name.trim() === "") {
-        this.errors.add(new ErrorDto("name", "Поле Имя обязатльное."));
+        this.errors.add(new ErrorDto(key, "Поле Имя обязатльное."));
       }
     },
 
     validateEmail() {
-      this.errors.unset("email");
+      const key = "email";
+      this.errors.unset(key);
       if (this.messageDto.email.trim() === "") {
-        this.errors.add(new ErrorDto("email", "Поле Email обязатльное."));
+        this.errors.add(new ErrorDto(key, "Проверьте поле Email."));
       }
     },
 
     validateMessage() {
-      this.errors.unset("message");
+      const key = "message";
+      this.errors.unset(key);
       if (this.messageDto.message.trim() === "") {
-        this.errors.add(new ErrorDto("message", "Заполните поле Сообщение."));
+        this.errors.add(new ErrorDto(key, "Заполните поле Сообщение."));
       }
     },
 
