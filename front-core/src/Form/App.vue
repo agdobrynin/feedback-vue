@@ -2,22 +2,32 @@
   <div>
     <form action="/store" @submit.prevent="store" v-if="!success">
       <h3>Отправить сообщение</h3>
-      <div class="form-group">
+
+      <div class="form-group" :class="{'has-error': this.getErrorName}">
         <label>Имя</label>
-        <input type="text" class="form-control" required v-model="message.name">
+        <input type="text" class="form-control" required v-model="messageDto.name">
+        <p v-if="this.getErrorName" class="help-block">{{ this.getErrorName }}</p>
       </div>
-      <div class="form-group">
+
+      <div class="form-group" :class="{'has-error': this.getErrorEmail}">
         <label>Email</label>
-        <input type="email" class="form-control" required v-model="message.email">
+        <input type="email" class="form-control" required v-model="messageDto.email">
+        <p v-if="this.getErrorEmail" class="help-block">{{ this.getErrorEmail }}</p>
       </div>
-      <div class="form-group">
+
+      <div class="form-group" :class="{'has-error': this.getErrorMessage}">
         <label>Сообщение</label>
-        <textarea name="message" required class="form-control" rows="5" v-model="message.message"></textarea>
+        <textarea name="message" required class="form-control" rows="5" v-model="messageDto.message"></textarea>
+        <p v-if="this.getErrorMessage" class="help-block">{{ this.getErrorMessage }}</p>
       </div>
+
       <div class="progress" v-if="loading">
         <div class="progress-bar progress-bar-striped active" style="width: 100%;"></div>
       </div>
-      <button type="submit" class="btn btn-default" v-if="!loading">Добавить отзыв</button>
+
+      <button type="submit" class="btn btn-primary" v-if="!loading" :disabled="this.errors.hasErrors()">
+        Добавить отзыв
+      </button>
     </form>
     <p>&nbsp;</p>
     <alert v-if="hasResponse" :class-info="success ? 'alert-success' : 'alert-danger'">
@@ -30,26 +40,96 @@
 import MessageDto from "@/Dto/MessageDto";
 import Api from "@/Service/Api";
 import Alert from "@/Components/Alert";
+import Errors from "@/Dto/Errors";
+import ErrorDto from "@/Dto/ErrorDto";
 
 export default {
   name: 'app',
   components: {Alert},
   data: () => ({
-    message: new MessageDto(),
+    messageDto: new MessageDto(),
     hasResponse: false,
     success: false,
     loading: false,
     responseMessage: "",
+    errors: new Errors(),
   }),
   methods: {
+
     async store() {
       this.loading = true;
-      const responseApiDto = await Api.store(this.message);
+      const responseApiDto = await Api.store(this.messageDto);
       this.hasResponse = responseApiDto;
       this.success = responseApiDto.success;
       this.responseMessage = responseApiDto.message;
       this.loading = false;
-    }
-  }
+    },
+
+    validateName() {
+      this.errors.unset("name");
+      if (this.messageDto.name.trim() === "") {
+        this.errors.add(new ErrorDto("name", "Поле Имя обязатльное."));
+      }
+    },
+
+    validateEmail() {
+      this.errors.unset("email");
+      if (this.messageDto.email.trim() === "") {
+        this.errors.add(new ErrorDto("email", "Поле Email обязатльное."));
+      }
+    },
+
+    validateMessage() {
+      this.errors.unset("message");
+      if (this.messageDto.message.trim() === "") {
+        this.errors.add(new ErrorDto("message", "Заполните поле Сообщение."));
+      }
+    },
+
+  },
+
+  computed: {
+
+    hasError() {
+      return this.errors.errors.length > 0;
+    },
+
+    getErrorName() {
+      return this.errors.get("name")?.message;
+    },
+
+    getErrorEmail() {
+      return this.errors.get("email")?.message;
+    },
+
+    getErrorMessage() {
+      return this.errors.get("message")?.message;
+    },
+
+  },
+
+  created() {
+    this.validateName();
+    this.validateEmail();
+    this.validateMessage();
+  },
+
+  watch: {
+    "messageDto.name": {
+      handler: function () {
+        this.validateName();
+      }
+    },
+    "messageDto.email": {
+      handler: function () {
+        this.validateEmail()
+      }
+    },
+    "messageDto.message": {
+      handler: function () {
+        this.validateMessage();
+      }
+    },
+  },
 }
 </script>
