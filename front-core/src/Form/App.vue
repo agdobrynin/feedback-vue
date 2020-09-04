@@ -5,25 +5,24 @@
 
       <div class="form-group" :class="{'has-error': this.getErrorName}">
         <label>Имя</label>
-        <input type="text" class="form-control" required v-model="messageDto.name">
+        <input type="text" class="form-control" required v-model="messageDto.name" :disabled="loading">
         <p v-if="this.getErrorName" class="help-block">{{ this.getErrorName }}</p>
       </div>
 
       <div class="form-group" :class="{'has-error': this.getErrorEmail}">
         <label>Email</label>
-        <input type="email" class="form-control" required v-model="messageDto.email">
+        <input type="email" class="form-control" required v-model="messageDto.email" :disabled="loading">
         <p v-if="this.getErrorEmail" class="help-block">{{ this.getErrorEmail }}</p>
       </div>
 
       <div class="form-group" :class="{'has-error': this.getErrorMessage}">
         <label>Сообщение</label>
-        <textarea name="message" required class="form-control" rows="5" v-model="messageDto.message"></textarea>
+        <textarea name="message" required class="form-control" rows="5" v-model="messageDto.message" :disabled="loading">
+        </textarea>
         <p v-if="this.getErrorMessage" class="help-block">{{ this.getErrorMessage }}</p>
       </div>
 
-      <div class="progress" v-if="loading">
-        <div class="progress-bar progress-bar-striped active" style="width: 100%;"></div>
-      </div>
+      <ProgressBar v-if="loading" :progress="100" :max="100"></ProgressBar>
 
       <button type="submit" class="btn btn-primary" v-if="!loading" :disabled="this.errors.hasErrors()">
         Добавить отзыв
@@ -40,12 +39,13 @@
 import MessageDto from "@/Dto/MessageDto";
 import Api from "@/Service/Api";
 import Alert from "@/Components/Alert";
+import ProgressBar from "@/Components/ProgressBar";
 import Errors from "@/Dto/Errors";
 import ErrorDto from "@/Dto/ErrorDto";
 
 export default {
   name: 'app',
-  components: {Alert},
+  components: {Alert, ProgressBar},
   data: () => ({
     messageDto: new MessageDto(),
     hasResponse: false,

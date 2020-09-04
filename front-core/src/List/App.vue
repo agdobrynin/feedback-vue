@@ -10,9 +10,7 @@
         </li>
       </ul>
     </nav>
-    <div class="progress" v-if="loading">
-      <div class="progress-bar progress-bar-striped active" style="width: 100%;"></div>
-    </div>
+    <ProgressBar v-if="loading" :progress="100" :max="100"></ProgressBar>
     <div v-if="!loading">
       <div v-for="message in messageCollection" :key="message.id" class="panel panel-info">
         <div class="panel-heading"><strong>Имя: {{ message.name }} Email: {{ message.email }}</strong></div>
@@ -26,9 +24,10 @@
 <script>
 import Api from "@/Service/Api";
 import Alert from "@/Components/Alert";
+import ProgressBar from "@/Components/ProgressBar";
 
 export default {
-  components: {Alert},
+  components: {Alert, ProgressBar},
   data: () => ({
     loading: false,
     success: true,
