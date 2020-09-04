@@ -4,19 +4,19 @@
       <h3>Отправить сообщение</h3>
 
       <div class="form-group" :class="this.getErrorName ? 'has-error': 'has-success'">
-        <label>Имя</label>
+        <label class="control-label">Имя</label>
         <input type="text" class="form-control" required v-model="messageDto.name" :disabled="loading">
         <p v-if="this.getErrorName" class="help-block">{{ this.getErrorName }}</p>
       </div>
 
       <div class="form-group" :class="this.getErrorEmail ? 'has-error' : 'has-success'">
-        <label>Email</label>
+        <label class="control-label">Email</label>
         <input type="email" class="form-control" required v-model="messageDto.email" :disabled="loading">
         <p v-if="this.getErrorEmail" class="help-block">{{ this.getErrorEmail }}</p>
       </div>
 
       <div class="form-group" :class="this.getErrorMessage ? 'has-error' : 'has-success'">
-        <label>Сообщение</label>
+        <label class="control-label">Сообщение</label>
         <textarea name="message" required class="form-control" rows="5" v-model="messageDto.message" :disabled="loading">
         </textarea>
         <p v-if="this.getErrorMessage" class="help-block">{{ this.getErrorMessage }}</p>
