@@ -3,6 +3,9 @@
     <alert v-if="!success" :class-info="success ? 'alert-success' : 'alert-danger'">
       {{ errorMessage }}
     </alert>
+    <alert v-if="success && !loading && messageCollection.length === 0">
+      Записей не найдено!
+    </alert>
     <nav>
       <ul class="pagination">
         <li v-for="page in pages" :key="page" :class="{active : currentPage === page}">
