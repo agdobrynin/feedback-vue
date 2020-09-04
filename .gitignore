@@ -1,0 +1,7 @@
+.idea
+/vendor
+/store/db/*
+!/store/db/.gitkeep
+/src/config.php
+/node_modules
+/public/js

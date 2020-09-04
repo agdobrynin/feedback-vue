@@ -1,0 +1,35 @@
+{
+  "name": "alex_dobrynin/feedback",
+  "description": "Simple feedbackform",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Alex Dobrynin",
+      "email": "dobrynin@example.com"
+    }
+  ],
+  "require": {
+    "php": "^7.3",
+    "ext-pdo": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/App",
+      "Core\\": "Core",
+      "System\\": "System"
+    }
+  },
+  "config" : {
+    "process-timeout" : 0
+  },
+  "scripts" : {
+    "serve" : "php -S 0.0.0.0:8080 -t public/",
+    "post-install-cmd": [
+      "System\\Install::makeConfig"
+    ],
+    "migration:up" : "System\\Install::migrationSqlUp",
+    "migration:down": "System\\Install::migrationSqlDown"
+  }
+}

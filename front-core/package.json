@@ -1,0 +1,26 @@
+{
+  "name": "front-core",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "vue-cli-service build",
+    "watch": "vue-cli-service build --watch",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "bootstrap-vue": "^2.16.0",
+    "core-js": "^3.6.5",
+    "ky": "^0.23.0",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@vue/cli": "^4.5.4",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.11"
+  }
+}
