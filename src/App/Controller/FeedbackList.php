@@ -18,22 +18,32 @@ final class FeedbackList extends BaseController
 
     public function pages(): Response
     {
-        (new Csrf())->verify()->refresh()->setResponseHeader($this->response);
         $responsePages = new ResponsePagesDto();
-        $responsePages->pages = (new MessageCollection($this->container->get(Db::class)))->getTotalPages();
-        $responsePages->success = true;
+        try {
+            (new Csrf())->verify()->refresh()->setResponseHeader($this->response);
+            $responsePages->pages = (new MessageCollection($this->container->get(Db::class)))->getTotalPages();
+            $responsePages->success = true;
+        } catch (\Throwable $exception) {
+            (new Csrf())->refresh()->setResponseHeader($this->response);
+            $responsePages->fromException($exception);
+        }
 
         return $this->response->setJson((array)$responsePages);
     }
 
     public function get(): Response
     {
-        (new Csrf())->verify()->refresh()->setResponseHeader($this->response);
-        $page = (int)filter_input(\INPUT_POST, 'page', FILTER_VALIDATE_INT);
-        $result = (new MessageCollection($this->container->get(Db::class)))->getOnPage($page);
         $responseMessageCollection = new ResponseMessageCollectionDto();
-        $responseMessageCollection->success = true;
-        $responseMessageCollection->messageCollection = $result;
+        try {
+            (new Csrf())->verify()->refresh()->setResponseHeader($this->response);
+            $page = (int)filter_input(\INPUT_POST, 'page', FILTER_VALIDATE_INT);
+            $result = (new MessageCollection($this->container->get(Db::class)))->getOnPage($page);
+            $responseMessageCollection->success = true;
+            $responseMessageCollection->messageCollection = $result;
+        } catch (\Throwable $exception) {
+            (new Csrf())->refresh()->setResponseHeader($this->response);
+            $responseMessageCollection->fromException($exception);
+        }
         return $this->response->setJson((array)$responseMessageCollection);
     }
 }

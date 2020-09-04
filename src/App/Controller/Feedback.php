@@ -18,20 +18,19 @@ final class Feedback extends BaseController
 
     public function store(): Response
     {
-        $data = new ResponseDto();
+        $responseDto = new ResponseDto();
         try {
             // Проверка на CSRF ключ
             (new Csrf())->verify()->refresh()->setResponseHeader($this->response);
             $messageEntity = (new Message())->fillFrom($_POST)->validate();
             (new Model($this->container->get(Db::class)))->save($messageEntity);
-            $data->success = true;
-            $data->message = sprintf('Спасибо, %s', $messageEntity->name);
+            $responseDto->success = true;
+            $responseDto->message = sprintf('Спасибо, %s', $messageEntity->name);
         } catch(\Throwable $exception) {
             (new Csrf())->refresh()->setResponseHeader($this->response);
-            $data->success = false;
-            $data->message = $exception->getMessage();
+            $responseDto->fromException($exception);
         }
 
-        return $this->response->setJson((array)$data);
+        return $this->response->setJson((array)$responseDto);
     }
 }
