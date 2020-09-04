@@ -43,6 +43,8 @@ import ProgressBar from "@/Components/ProgressBar";
 import Errors from "@/Dto/Errors";
 import ErrorDto from "@/Dto/ErrorDto";
 
+const regEmail = new RegExp('^(([^<>()\\[\\]\\.,;:\\s@\\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\\]\\.,;:\\s@\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\"]{2,})$', 'i');
+
 export default {
   name: 'app',
   components: {Alert, ProgressBar},
@@ -76,7 +78,7 @@ export default {
     validateEmail() {
       const key = "email";
       this.errors.unset(key);
-      if (this.messageDto.email.trim() === "") {
+      if (this.messageDto.email.trim() === "" || !regEmail.test(this.messageDto.email)) {
         this.errors.add(new ErrorDto(key, "Проверьте поле Email."));
       }
     },
