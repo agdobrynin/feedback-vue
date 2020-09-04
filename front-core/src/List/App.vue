@@ -61,8 +61,9 @@ export default {
     this.pages = Array.from(Array(pagesApiDto.pages), (_, i) => i + 1);
     let defaultStartPage = 1;
     const regResult = /page=(\d+)/.exec(location.search);
-    if (regResult && parseInt(regResult[1])) {
-      defaultStartPage = parseInt(regResult[1]);
+    const pageNumberFromParam = regResult ? parseInt(regResult[1]) : defaultStartPage;
+    if (pageNumberFromParam > 0 && pageNumberFromParam <= this.pages ) {
+      defaultStartPage = pageNumberFromParam;
     }
     this.getPage(defaultStartPage);
     this.loading = false;
