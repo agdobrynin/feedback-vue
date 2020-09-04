@@ -13,7 +13,7 @@ class ResponseDto
 
     public function fromException(\Throwable $throwable): void
     {
-        $this->success = fase;
+        $this->success = false;
         $this->message = $throwable->getMessage();
         $this->trace = $throwable->getTrace();
     }
