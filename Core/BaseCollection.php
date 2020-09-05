@@ -60,7 +60,7 @@ class BaseCollection
     {
         $pdoStatement = $this->prepareCollectionQuery($entity);
         $this->executePdoStatement($pdoStatement);
-        $pdoStatement->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_class($entity));
+        $pdoStatement->setFetchMode(\PDO::FETCH_LAZY | \PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_class($entity));
         while ($record = $pdoStatement->fetch()) {
             yield $record;
         }
