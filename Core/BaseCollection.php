@@ -60,20 +60,10 @@ class BaseCollection
     {
         $pdoStatement = $this->prepareCollectionQuery($entity);
         $this->executePdoStatement($pdoStatement);
-        $pdoStatement->setFetchMode(\PDO::FETCH_LAZY | \PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_class($entity));
+        $pdoStatement->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, get_class($entity));
         while ($record = $pdoStatement->fetch()) {
             yield $record;
         }
-    }
-
-    /**
-     * @return BaseEntity[]
-     */
-    public function getAll(BaseEntity $entity): array
-    {
-        $pdoStatement = $this->prepareCollectionQuery($entity);
-        $this->executePdoStatement($pdoStatement);
-        return $pdoStatement->fetchAll(\PDO::FETCH_CLASS, get_class($entity)) ?: [];
     }
 
     protected function getConditions(): string

@@ -28,17 +28,16 @@ final class MessageCollection
     public function getOnPage(int $page = self::PAGE, int $pageSize = self::PAGE_SIZE): array
     {
         $this->collection->setOrderBy('id')->setLimit($page, $pageSize);
-        $result = $this->collection->getAll(new Message());
         $date = new \DateTimeImmutable();
-        array_walk(
-            $result,
-            static function (Message &$item) use ($date) {
-                $item->createdAt = $date->setTimestamp((int)$item->createdAt)->format(self::DATE_FORMAT);
-                $item->message = substr($item->message, 0, self::MAX_MESSAGE_LENGTH) .
-                    (mb_strlen($item->message) > self::MAX_MESSAGE_LENGTH ? '...' : '');
-            }
-        );
+        $messages = [];
+        /** @var Message $message */
+        foreach ($this->collection->getEntities(new Message()) as $message) {
+            $message->createdAt = $date->setTimestamp((int)$message->createdAt)->format(self::DATE_FORMAT);
+            $message->message = substr($message->message, 0, self::MAX_MESSAGE_LENGTH) .
+                (mb_strlen($message->message) > self::MAX_MESSAGE_LENGTH ? '...' : '');
+            $messages[] = $message;
+        }
 
-        return $result;
+        return $messages;
     }
 }
