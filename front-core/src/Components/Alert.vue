@@ -1,5 +1,6 @@
 <template>
   <div class="alert" :class="classInfo">
+    <button type="button" class="close" @click="$emit('close')"><span aria-hidden="true">&times;</span></button>
     <slot></slot>
   </div>
 </template>

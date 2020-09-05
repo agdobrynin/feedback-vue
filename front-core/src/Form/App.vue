@@ -29,7 +29,7 @@
       </button>
     </form>
     <p>&nbsp;</p>
-    <alert v-if="hasResponse" :class-info="success ? 'alert-success' : 'alert-danger'">
+    <alert v-if="hasResponse" @close="hasResponse = false" :class-info="success ? 'alert-success' : 'alert-danger'">
       <strong v-if="!success">Ошибка от сервера: </strong>
       {{ responseMessage }}
     </alert>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <alert v-if="!success" :class-info="success ? 'alert-success' : 'alert-danger'">
+    <alert v-if="!success" @close="success = true" :class-info="success ? 'alert-success' : 'alert-danger'">
       {{ errorMessage }}
     </alert>
     <alert v-if="success && !loading && messageCollection.length === 0">
