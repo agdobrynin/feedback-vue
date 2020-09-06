@@ -2,18 +2,20 @@
 
 use Core\{Config, Container, Csrf, Db, View};
 
+$rootDirectoryWebApplication = dirname(__DIR__. 2).DIRECTORY_SEPARATOR.'public';
+
 $c = new Container();
 // Конттейнер с конфигурацией
 $c->set(Config::class, static function () {
     return new Config(require 'config.php');
 });
 // Контейнер с шаблонами
-$c->set(View::class, static function () use ($c) {
+$c->set(View::class, static function () use ($c, $rootDirectoryWebApplication) {
     $view = new View($c->get(Config::class)->getViewDirectory());
     // Добавляю глобальную переменную $csrf в шаблоны
     $view->addGlobalData('csrf', new Csrf());
     // Добавляю переменную $jsBandlerDirectory расположения js бандлов в шаблонизатор
-    $jsBandlerDirectory = dirname(__DIR__. 2).DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR;
+    $jsBandlerDirectory = $rootDirectoryWebApplication.DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR;
     $view->addGlobalData('jsBandlerDirectory', $jsBandlerDirectory);
 
     return $view;
