@@ -23,7 +23,7 @@ final class Router
 
         $oldAjaxRequestHeader = $_SERVER['HTTP_X_REQUESTED_WITH'] ?? '';
         $isOldAjaxRequestHeader = 'xmlhttprequest' === strtolower($oldAjaxRequestHeader);
-        $acceptRequestHeader = $_SERVER['HTTP_ACCEPT'] ?? '';
+        $acceptRequestHeader = $_SERVER['HTTP_ACCEPT'] ?? $_SERVER['ACCEPT'] ?? '';
         $isAcceptJsonResponse = 'application/json' === strtolower($acceptRequestHeader);
         $this->isAjax = $isOldAjaxRequestHeader || $isAcceptJsonResponse;
 
