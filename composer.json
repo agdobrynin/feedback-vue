@@ -31,5 +31,10 @@
     ],
     "migration:up" : "System\\Install::migrationSqlUp",
     "migration:down": "System\\Install::migrationSqlDown"
+  },
+  "scripts-descriptions": {
+    "serve": "Run build in PHP webserver | Запуск встроенного в PHP вэб-сервера для тестов и локальной разработки",
+    "migration:up" : "Database migration up | Создать из миграции таблицы для проекта",
+    "migration:down": "Database migration down | Удалить таблицы из базы"
   }
 }
