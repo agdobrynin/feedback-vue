@@ -1,6 +1,6 @@
 <template>
   <div class="alert" :class="classInfo">
-    <button type="button" class="close" @click="$emit('close')"><span aria-hidden="true">&times;</span></button>
+    <button v-if="showClose" type="button" class="close" @click="$emit('close')"><span aria-hidden="true">&times;</span></button>
     <slot></slot>
   </div>
 </template>
@@ -11,6 +11,10 @@ export default {
     classInfo: {
       type: String,
       default: "alert-info",
+    },
+    showClose: {
+      type: Boolean,
+      default: true,
     }
   }
 }
