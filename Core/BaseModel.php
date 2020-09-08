@@ -40,7 +40,7 @@ class BaseModel
     public function update(BaseEntity $entity): bool
     {
         $this->verifyId($entity);
-        $sql = sprintf('UPDATE %s SET %s WHERE %s = %d', $entity->getTable(),$entity->getFieldsWithPlaceHolders(), $entity->getPrimaryKeyName(),$entity->id);
+        $sql = sprintf('UPDATE %s SET %s WHERE %s = %d', $entity->getTable(),$entity->getFieldsWithPlaceHolders(), $entity->getPrimaryKeyName(), $entity->getPrimaryKeyName());
 
         return $this->bindValues($this->pdo->prepare($sql), $entity->getPlaceholdersWithData())->execute();
     }
