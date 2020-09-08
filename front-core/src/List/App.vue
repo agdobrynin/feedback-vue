@@ -18,7 +18,7 @@
       <div v-for="message in messageCollection" :key="message.id" class="panel panel-info">
         <div class="panel-heading"><strong>Имя: {{ message.name }}, Email: {{ message.email }}</strong></div>
         <div class="panel-body">{{ message.message }}</div>
-        <div class="panel-footer text-muted">сообщение добавлено в {{ message.createdAt }} (id= {{ message.id }})</div>
+        <div class="panel-footer text-muted">сообщение добавлено в {{ message.createdAt }} (id={{ message.id }})</div>
       </div>
     </div>
   </div>
