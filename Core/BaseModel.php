@@ -32,7 +32,7 @@ class BaseModel
     public function delete(BaseEntity $entity): bool
     {
         $this->verifyId($entity);
-        $sql = sprintf('DELETE FROM %s WHERE %s = %d', $entity->getTable(), $entity->getPrimaryKeyName(),$entity->id);
+        $sql = sprintf('DELETE FROM %s WHERE %s = %d', $entity->getTable(), $entity->getPrimaryKeyName(),$entity->getPrimaryKeyName());
 
         return $this->pdo->prepare($sql)->execute();
     }
