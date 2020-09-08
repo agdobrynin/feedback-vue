@@ -4,11 +4,11 @@ module.exports = {
     filenameHashing: true,
     pages: {
         feedbackForm: {
-            entry: 'src/Form/main.js',
+            entry: 'src/NewMessage/main.js',
             // source template
-            template: 'src/Form/index.html',
+            template: 'src/NewMessage/index.html',
             // output
-            filename: 'feedbackForm.html',
+            filename: 'newMessage.html',
             chunks: ['chunk-vendors', 'chunk-common', 'feedbackForm']
         },
         feedbackList: {

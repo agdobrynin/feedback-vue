@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Отправить сообщение</h3>
+    <h3 v-if="!success">Отправить сообщение</h3>
     <FeedbackForm @save="store" :messageDto="messageDto" :loading="loading" v-if="!success"></FeedbackForm>
     <p>&nbsp;</p>
     <alert v-if="hasResponse"
