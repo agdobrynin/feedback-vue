@@ -6,30 +6,37 @@ namespace Core;
 
 abstract class BaseEntity
 {
+    /** @var mixed значение первичного ключа */
+    public $id;
+
     /** @var string Дефолтное имя таблицы Имя класс + окончание "s" множественное число */
     protected $table;
     /** @var string первичный ключ таблицы */
     protected $primaryKey = 'id';
-    /** @var mixed значение первичного ключа */
-    public $id;
 
-    /** @var \ReflectionProperty[] */
+    /** @var \ReflectionProperty[] Свойства класса. */
     private $properties;
+    /** @var string[] плейсхолдеры полей класса для выполнения sql запроса черех PDO.  */
     private $placeholders;
     private $values;
     protected $fields;
+    /** @var \ReflectionClass Рефлекшен класса Entity */
+    private $reflectionClass;
 
     public function __construct()
     {
-        $refClass = new \ReflectionClass($this);
-        $this->properties = array_filter($refClass->getProperties(\ReflectionProperty::IS_PUBLIC), function (\ReflectionProperty $property) {
+        $this->reflectionClass = new \ReflectionClass($this);
+        $this->properties = array_filter($this->reflectionClass->getProperties(\ReflectionProperty::IS_PUBLIC), function (\ReflectionProperty $property) {
             return $property->name !== $this->primaryKey;
         });
-        $this->table = $refClass->getShortName() . 's';
     }
 
     public function getTable(): ?string
     {
+        if (empty($this->table)) {
+            $this->table = $this->reflectionClass->getShortName() . 's';
+        }
+
         return $this->table;
     }
 
