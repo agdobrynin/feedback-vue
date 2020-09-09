@@ -19,6 +19,14 @@ module.exports = {
             filename: 'feedbackList.html',
             chunks: ['chunk-vendors', 'chunk-common', 'feedbackList']
         },
+        feedbackEdit: {
+            entry: 'src/EditMessage/main.js',
+            // source template
+            template: 'src/EditMessage/index.html',
+            // output
+            filename: 'editMessage.html',
+            chunks: ['chunk-vendors', 'chunk-common', 'feedbackEdit']
+        },
     },
     devServer: {
         inline: false
