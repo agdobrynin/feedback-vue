@@ -5,10 +5,19 @@ return [
     '/' => App\Controller\Home::class,
     // Страница с формой
     '/feedback' => App\Controller\Feedback::class,
+    // страница с формой редактирования
+    '/feedback/edit-form' => App\Controller\Feedback::class.'@editForm',
     // для ajax запроса на сохранение данных с формы feedback
-    '/store' => App\Controller\Feedback::class.'@store',
-    // Форма для подгрузки сообщений из базы
+    '/feedback/store' => App\Controller\Feedback::class.'@store',
+    // для ajax запроса на получение feedback сообщения
+    '/feedback/get' => App\Controller\Feedback::class.'@get',
+    // для ajax запроса на удаление feedback сообщения
+    '/feedback/delete' => App\Controller\Feedback::class.'@delete',
+
+    // Форма список сообщений из базы
     '/feedback-list' => App\Controller\FeedbackList::class,
-    '/feedback-pages' => App\Controller\FeedbackList::class.'@pages',
-    '/feedback-get' => App\Controller\FeedbackList::class.'@get',
+    // для ajax запросов получения количества страницы
+    '/feedback-list/pages' => App\Controller\FeedbackList::class.'@pages',
+    // для ajax запроса получения сообщений на конкретной странице
+    '/feedback-list/get' => App\Controller\FeedbackList::class.'@get',
 ];
