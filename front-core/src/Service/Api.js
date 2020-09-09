@@ -2,7 +2,7 @@ import ky from "ky";
 import ResponseApiDto from "@/Dto/ResponseApiDto";
 import PagesApiDto from "@/Dto/PagesApiDto";
 import MessageCollectionApiDto from "@/Dto/MessageCollectionApiDto";
-import MessageApiDto from "../Dto/MessageApiDto";
+import MessageApiDto from "@/Dto/MessageApiDto";
 
 // Имя заголовка для передачи CSRF токена в хэдерах запросов
 const csrfKey = "csrf-key-verifier";
