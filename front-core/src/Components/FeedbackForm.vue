@@ -21,7 +21,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary" v-if="!loading" :disabled="this.errors.hasErrors()">
-      Добавить отзыв
+      {{ this.buttonLabel }}
     </button>
 
     <ProgressBar v-if="loading" :progress="100" :max="100"></ProgressBar>
@@ -46,6 +46,10 @@ export default {
     loading: {
       type: Boolean,
       default: false,
+    },
+    buttonLabel: {
+      type: String,
+      default: "Добавить отзыв",
     }
   },
 
