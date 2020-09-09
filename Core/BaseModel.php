@@ -32,7 +32,7 @@ class BaseModel
     public function delete(BaseEntity $entity): bool
     {
         $this->verifyId($entity);
-        $sql = sprintf('DELETE FROM %s WHERE %s = %d', $entity->getTable(), $entity->getPrimaryKeyName(),$entity->getPrimaryKeyName());
+        $sql = sprintf('DELETE FROM %s WHERE %s = %d', $entity->getTable(), $entity->getPrimaryKeyName(), $entity->id);
 
         return $this->pdo->prepare($sql)->execute();
     }
@@ -40,7 +40,12 @@ class BaseModel
     public function update(BaseEntity $entity): bool
     {
         $this->verifyId($entity);
-        $sql = sprintf('UPDATE %s SET %s WHERE %s = %d', $entity->getTable(),$entity->getFieldsWithPlaceHolders(), $entity->getPrimaryKeyName(), $entity->getPrimaryKeyName());
+        $sql = sprintf(
+            'UPDATE %s SET %s WHERE %s = %d',
+            $entity->getTable(),
+            $entity->getFieldsWithPlaceHolders(),
+            $entity->getPrimaryKeyName(),
+            $entity->id);
 
         return $this->bindValues($this->pdo->prepare($sql), $entity->getPlaceholdersWithData())->execute();
     }
