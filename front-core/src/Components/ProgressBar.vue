@@ -1,7 +1,6 @@
-<template>
-  <div class="progress">
-    <div class="progress-bar progress-bar-striped active" :style="style"></div>
-  </div>
+<template lang="pug">
+  div.progress
+    div.progress-bar.progress-bar-striped.active(:style="style")
 </template>
 
 <script>

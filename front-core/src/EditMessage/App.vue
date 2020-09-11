@@ -1,20 +1,14 @@
-<template>
-  <div>
-    <div v-if="success">
-      <h3>Редактирование сообщения</h3>
-      <FeedbackForm v-if="!successUpdate" @save="update" :messageDto="messageDto" :loading="loading" buttonLabel="Обновить"></FeedbackForm>
-      <p>&nbsp;</p>
-      <Alert v-if="successUpdate" class="alert-success">
-        Сообщение обновлено!
-      </Alert>
-      <Alert v-if="!successUpdate && errorMessage" class="alert-danger" @close="errorMessage = ''">
-        {{ errorMessage }}
-      </Alert>
-    </div>
-    <Alert v-if="!success" class="alert-danger">
-      {{ errorMessage }}
-    </Alert>
-  </div>
+<template lang="pug">
+  div
+    div(v-if="success")
+      h3 Редактирование сообщения
+      FeedbackForm(v-if="!successUpdate" @save="update" :messageDto="messageDto" :loading="loading" buttonLabel="Обновить")
+      p &nbsp;
+      Alert.alert-success(v-if="successUpdate") Сообщение обновлено!
+      Alert.alert-danger(v-if="!successUpdate && errorMessage" @close="errorMessage = ''")
+        | #[i.fa.fa-exclamation-triangle]
+        | {{ errorMessage }}
+    Alert.alert-danger(v-if="!success") {{ errorMessage }}
 </template>
 
 <script>

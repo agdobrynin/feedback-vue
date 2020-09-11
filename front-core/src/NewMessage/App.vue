@@ -1,16 +1,11 @@
-<template>
-  <div>
-    <h3 v-if="!success">Отправить сообщение</h3>
-    <FeedbackForm @save="store" :messageDto="messageDto" :loading="loading" v-if="!success"></FeedbackForm>
-    <p>&nbsp;</p>
-    <alert v-if="hasResponse"
-           @close="hasResponse = false"
-           :class-info="success ? 'alert-success' : 'alert-danger'"
-           :show-close="!success">
-      <strong v-if="!success">Ошибка от сервера: </strong>
-      {{ responseMessage }}
-    </alert>
-  </div>
+<template lang="pug">
+  div
+    h3(v-if="!success") Отправить сообщение
+    FeedbackForm(v-if="!success" @save="store" :messageDto="messageDto" :loading="loading")
+    p &nbsp;
+    Alert(v-if="hasResponse" @close="hasResponse = false" :class-info="success ? 'alert-success' : 'alert-danger'" :show-close="!success")
+      strong(v-if="!success") #[i.fa.fa-exclamation-triangle] Ошибка от сервера:&nbsp;
+      | {{ responseMessage }}
 </template>
 
 <script>

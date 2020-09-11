@@ -1,32 +1,25 @@
-<template>
-  <form @submit.prevent="$emit('save')">
-    <input type="hidden" v-model="messageDto.id">
-    <div class="form-group" :class="this.getErrorName ? 'has-error': 'has-success'">
-      <label class="control-label">Имя</label>
-      <input type="text" class="form-control" required v-model="messageDto.name" :disabled="loading">
-      <p v-if="this.getErrorName" class="help-block">{{ this.getErrorName }}</p>
-    </div>
+<template lang="pug">
+  form(@submit.prevent="$emit('save')")
+    input(type="hidden" v-model="messageDto.id")
+    div.form-group(:class="this.getErrorName ? 'has-error': 'has-success'")
+      label.control-label Имя
+      input.form-control(type="text" required v-model="messageDto.name" :disabled="loading")
+      p.help-block(v-if="this.getErrorName") {{ this.getErrorName }}
 
-    <div class="form-group" :class="this.getErrorEmail ? 'has-error' : 'has-success'">
-      <label class="control-label">Email</label>
-      <input type="email" class="form-control" required v-model="messageDto.email" :disabled="loading">
-      <p v-if="this.getErrorEmail" class="help-block">{{ this.getErrorEmail }}</p>
-    </div>
+    div.form-group(:class="this.getErrorEmail ? 'has-error' : 'has-success'")
+      label.control-label Email
+      input.form-control(type="email" required v-model="messageDto.email" :disabled="loading")
+      p.help-block(v-if="this.getErrorEmail") {{ this.getErrorEmail }}
 
-    <div class="form-group" :class="this.getErrorMessage ? 'has-error' : 'has-success'">
-      <label class="control-label">Сообщение</label>
-      <textarea name="message" required class="form-control" rows="5" v-model="messageDto.message" :disabled="loading">
-        </textarea>
-      <p v-if="this.getErrorMessage" class="help-block">{{ this.getErrorMessage }}</p>
-    </div>
+    div.form-group(:class="this.getErrorMessage ? 'has-error' : 'has-success'")
+      label.control-label Сообщение
+      textarea.form-control(name="message" required rows="5" v-model="messageDto.message" :disabled="loading")
+      p.help-block(v-if="this.getErrorMessage") {{ this.getErrorMessage }}
 
-    <button type="submit" class="btn btn-primary" v-if="!loading" :disabled="this.errors.hasErrors()">
-      {{ this.buttonLabel }}
-    </button>
+    button.btn.btn-primary(v-if="!loading" :disabled="this.errors.hasErrors()" type="submit") {{ this.buttonLabel }}
 
-    <ProgressBar v-if="loading" :progress="100" :max="100"></ProgressBar>
+    ProgressBar(v-if="loading" :progress="100" :max="100")
 
-  </form>
 </template>
 
 <script>

@@ -1,8 +1,8 @@
-<template>
-  <div class="alert" :class="classInfo">
-    <button v-if="showClose" type="button" class="close" @click="$emit('close')"><span aria-hidden="true">&times;</span></button>
-    <slot></slot>
-  </div>
+<template lang="pug">
+  div.alert(:class="classInfo")
+    button.close(v-if="showClose" type="button" @click="$emit('close')")
+      span &times;
+    slot
 </template>
 
 <script>

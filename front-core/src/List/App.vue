@@ -1,32 +1,25 @@
-<template>
-  <div>
-    <alert v-if="!success" @close="success = true" :class-info="success ? 'alert-success' : 'alert-danger'">
-      {{ errorMessage }}
-    </alert>
-    <alert v-if="success && !loading && messageCollection.length === 0">
-      Записей не найдено!
-    </alert>
-    <nav v-if="this.messageCollection.length">
-      <ul class="pagination">
-        <li v-for="page in pages" :key="page" :class="{active : currentPage === page}">
-          <a href="#" class="page" @click.prevent="getPage(page)">{{ page }}</a>
-        </li>
-      </ul>
-    </nav>
-    <ProgressBar v-if="loading" :progress="100" :max="100"></ProgressBar>
-    <div v-if="!loading">
-      <div v-for="message in messageCollection" :key="message.id" class="panel panel-info">
-        <div class="panel-heading"><strong>Имя: {{ message.name }}, Email: {{ message.email }}</strong></div>
-        <div class="panel-body">{{ message.message }}</div>
-        <div class="panel-footer text-muted">
-          сообщение добавлено в {{ message.createdAt }} (id={{ message.id }})
-          <a :href="`/feedback/edit-form?id=${message.id}`" class="btn btn-xs btn-success">редактировать</a>
-          &nbsp;
-          <a class="btn btn-xs btn-danger" @click.stop="deleteMessage(message.id)">удалить</a>
-        </div>
-      </div>
-    </div>
-  </div>
+<template lang="pug">
+  div
+    Alert(v-if="!success" @close="success = true" :class-info="success ? 'alert-success' : 'alert-danger'")
+      | {{ errorMessage }}
+    Alert(v-if="success && !loading && messageCollection.length === 0") Записей не найдено!
+
+    nav(v-if="this.messageCollection.length")
+      ul.pagination
+        li(v-for="page in pages" :key="page" :class="{active : currentPage === page}")
+          a.page(href="#" @click.prevent="getPage(page)") {{ page }}
+    ProgressBar(v-if="loading" :progress="100" :max="100")
+    div(v-if="!loading")
+      div.panel.panel-info(v-for="message in messageCollection" :key="message.id")
+        div.panel-heading
+          h3.panel-title Имя: {{ message.name }}, Email: {{ message.email }}
+        div.panel-body {{ message.message }}
+        div.panel-footer.text-muted сообщение добавлено в {{ message.createdAt }} (id={{ message.id }})
+        ul.nav.nav-pills
+          li.presentation
+            a.text-success(:href="`/feedback/edit-form?id=${message.id}`") редактировать
+          li.presentation
+            a.text-danger(href="#" @click.stop="deleteMessage(message.id)") удалить
 </template>
 
 <script>
