@@ -3,9 +3,8 @@
     h3(v-if="!success") Отправить сообщение
     FeedbackForm(v-if="!success" @save="store" :messageDto="messageDto" :loading="loading")
     p &nbsp;
-    Alert(v-if="hasResponse" @close="hasResponse = false" :class-info="success ? 'alert-success' : 'alert-danger'" :show-close="!success")
-      strong(v-if="!success") #[i.fa.fa-exclamation-triangle] Ошибка от сервера:&nbsp;
-      | {{ responseMessage }}
+    Alert(v-if="hasResponse && success" class-info="alert-success" icon="fa-check") {{ responseMessage }}
+    Alert(v-if="hasResponse && !success" class-info="alert-danger" @close="hasResponse=false" icon="fa-exclamation-triangle") {{ responseMessage }}
 </template>
 
 <script>

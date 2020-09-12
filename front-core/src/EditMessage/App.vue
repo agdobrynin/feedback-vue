@@ -1,14 +1,13 @@
 <template lang="pug">
   div
-    div(v-if="success")
-      h3 Редактирование сообщения
-      FeedbackForm(v-if="!successUpdate" @save="update" :messageDto="messageDto" :loading="loading" buttonLabel="Обновить")
-      p &nbsp;
-      Alert.alert-success(v-if="successUpdate") Сообщение обновлено!
-      Alert.alert-danger(v-if="!successUpdate && errorMessage" @close="errorMessage = ''")
-        | #[i.fa.fa-exclamation-triangle]
-        | {{ errorMessage }}
-    Alert.alert-danger(v-if="!success") {{ errorMessage }}
+    Alert.alert-danger(v-if="!successLoad" icon="fa-exclamation-triangle") {{ errorMessage }}
+    div(v-if="successLoad")
+        h3 Редактирование сообщения
+        FeedbackForm(v-if="!successUpdate" @save="update" :messageDto="messageDto" :loading="loading" buttonLabel="Обновить")
+        p &nbsp;
+        Alert(v-if="successUpdate" icon="fa-check" class-info="alert-success") Сообщение обновлено!
+        Alert(v-if="!successUpdate && errorMessage" @close="errorMessage = ''" icon="fa-exclamation-triangle" class-info="alert-danger")
+          | {{ errorMessage }}
 </template>
 
 <script>
@@ -21,7 +20,7 @@ export default {
   components: {Alert, FeedbackForm},
   data: () => ({
     messageDto: new MessageDto(),
-    success: false,
+    successLoad: false,
     loading: false,
     errorMessage: "",
     successUpdate: false,
@@ -40,9 +39,9 @@ export default {
     const regResult = /id=(\d+)/.exec(location.search);
     const messageId = regResult ? parseInt(regResult[1]) : 0;
     const messageApiDto = await Api.getMessage(messageId);
-    this.success = messageApiDto.success;
+    this.successLoad = messageApiDto.success;
     this.errorMessage = messageApiDto.message;
-    if (this.success) {
+    if (this.successLoad) {
       this.messageDto = messageApiDto.messageDto;
     }
     this.loading = false;
