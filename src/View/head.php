@@ -1,15 +1,17 @@
-<!DOCTYPE html>
+<?php /** @var $pageParams App\Helper\View */?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Демо страница с Feedback формой</title>
+    <title><?php echo $pageParams->getTitle() ?? 'Демо страница с Feedback формой' ?></title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <?php /** @var $csrf Core\Csrf */?>
     <meta content="<?php echo $csrf->refresh()->getValue() ?>" name="<?php echo Core\Csrf::CSRF_KEY?>" />
+    <meta name="Description" content="<?php echo $pageParams->getDescription() ?? 'Тестовое задание на PHP и VueJs' ?>">
+    <meta name="keywords" content="<?php echo $pageParams->getKeywords() ?? 'php, javascript, vuejs, html, css, webpack' ?>">
 </head>
 <body>
 

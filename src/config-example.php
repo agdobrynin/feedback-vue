@@ -6,5 +6,5 @@ return [
         'user' => null,
         'password' => null,
     ],
-    'viewDirectory' => __DIR__.DIRECTORY_SEPARATOR.'App'.DIRECTORY_SEPARATOR.'View',
+    'viewDirectory' => dirname(__FILE__, 1) . DIRECTORY_SEPARATOR.'View',
 ];

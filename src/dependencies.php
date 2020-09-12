@@ -12,6 +12,8 @@ $c->set(View::class, static function () use ($c) {
     $view = new View($c->get(Config::class)->getViewDirectory());
     // Добавляю глобальную переменную $csrf в шаблоны
     $view->addGlobalData('csrf', new Csrf());
+    // Добавляю глобальный класс Helper\View $pageParams для настройки мета данных в html странице
+    $view->addGlobalData(App\Helper\View::PAGE_PARAMS_KEY, new App\Helper\View());
     // Добавляю переменную $jsBandlerDirectory расположения js бандлов в шаблонизатор
     $rootDirectoryWebApplication = dirname(__DIR__. 2).DIRECTORY_SEPARATOR.'public';
     $jsBandlerDirectory = $rootDirectoryWebApplication.DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR;
