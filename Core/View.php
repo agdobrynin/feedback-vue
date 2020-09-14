@@ -28,7 +28,7 @@ final class View
     {
         $template = $this->viewPath . $template . ($this->useExtension ? '' : '.php');
         if (file_exists($template)) {
-            $data = array_merge($data, $this->globalData);
+            $data = array_merge($this->globalData, $data);
             extract($data, EXTR_OVERWRITE);
             ob_start();
             include $template;
