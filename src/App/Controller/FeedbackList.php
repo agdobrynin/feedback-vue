@@ -11,13 +11,11 @@ final class FeedbackList extends BaseController
 {
     public function __invoke(): Response
     {
-        $this->view->addGlobalData(
-            ViewHelper::PAGE_PARAMS_KEY,
-            (new ViewHelper())
+        $data[ViewHelper::PAGE_PARAMS_KEY] = (new ViewHelper())
                 ->setTitle('Список Feedback сообщений')
                 ->setDescription('Постраничный список сообщений, для загрузки используется ajax')
-                ->setKeywords('php, mvc, router, vuejs, pug template')
-        );
-        return $this->response->setBody($this->view->render('list'));
+                ->setKeywords('php, mvc, router, vuejs, pug template');
+
+        return $this->response->setBody($this->view->render('list', $data));
     }
 }

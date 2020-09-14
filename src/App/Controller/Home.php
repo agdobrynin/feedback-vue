@@ -11,14 +11,12 @@ final class Home extends BaseController
 {
     public function __invoke()
     {
-        $this->view->addGlobalData(
-            ViewHelper::PAGE_PARAMS_KEY,
-            (new ViewHelper())
+        $data[ViewHelper::PAGE_PARAMS_KEY] = (new ViewHelper())
                 ->setTitle('Тестовое задание Php + Vue Js')
                 ->setDescription('Сделать форму обратной связи на чистом PHP, Mysql (sqlite), VueJs')
-                ->setKeywords('php, ооп, mvc, vue js, pug template, webpack, html5, css, boostrap 3.4')
-        );
+                ->setKeywords('php, ооп, mvc, vue js, pug template, webpack, html5, css, boostrap 3.4');
 
-        return $this->response->setBody($this->view->render('index'));
+
+        return $this->response->setBody($this->view->render('index', $data));
     }
 }
