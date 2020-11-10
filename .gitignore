@@ -5,3 +5,7 @@
 /src/config.php
 /node_modules
 /public/js
+.buildpath
+.project
+.settings/
+
