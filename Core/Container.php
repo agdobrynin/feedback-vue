@@ -31,7 +31,7 @@ final class Container
 
             return $this->resolvedContainer[$name];
         }
-        throw new \UnexpectedValueException(sprintf('Контейнер "%s" назарегистрирован', $name));
+        throw new \UnexpectedValueException(sprintf('Контейнер "%s" не зарегистрирован', $name));
     }
 
     public function has(string $name): bool
