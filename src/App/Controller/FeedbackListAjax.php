@@ -8,7 +8,7 @@ use App\Dto\{ResponseMessageCollectionDto, ResponsePagesDto};
 use App\Model\MessageCollection;
 use Core\{BaseController, Csrf, Db, Response};
 
-class FeedbackListAjax extends BaseController
+final class FeedbackListAjax extends BaseController
 {
 
     public function pages(): Response
